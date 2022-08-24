@@ -1,5 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import Register from "@/views/Register";
+// import Item from "@/views/Item";
+// import Customer from "@/views/Customer";
+// import StoreKeeper from "@/views/StoreKeeper";
+// import Administrator from "@/views/Administrator";
+// import Goods from "@/views/Goods";
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -10,17 +16,17 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
+ * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+ *                                if not set alwaysShow, only more than one route under the children
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar,
   }
-**/
+ **/
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
 
@@ -39,6 +45,37 @@ export const constantRouterMap = [
       component: () => import('@/views/userHome/index')//点击侧边栏后将跳转到的路径
     }]
   },
+  {
+    path: '/',
+    component: Layout,
+    children: [
+      {
+        path: '/Register',
+        name: 'Register',
+        component: () => import('@/views/Register'),
+        meta: { title: 'Register', icon: 'Register' }
+      },
+      {
+        path: '/customer',
+        name: '/customer',
+        component: () => import('@/views/Customer'),
+        meta: { title: 'Customer', icon: 'Customer' }
+      },
+      {
+        path: '/StoreKeeper',
+        name: '/StoreKeeper',
+        component: () => import('@/views/StoreKeeper'),
+        meta: { title: 'StoreKeeper', icon: 'StoreKeeper' }
+      },
+      {
+        path: '/Administrator',
+        name: '/Administrator',
+        component: () => import('@/views/Administrator'),
+        meta: { title: 'Administrator', icon: 'Administrator' }
+      },
+    ]
+  },
+
   {
     path: '/',
     component: Layout,
@@ -75,10 +112,50 @@ export const constantRouterMap = [
         name: '树状图',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      },
+      {
+        path: 'homeview',
+        name: 'HomeView',
+        component: () => import('@/views/HomeView'),
+        meta: { title: 'HomeView', icon: 'HomeView' }
+      },
+      {
+        path: 'item',
+        name: 'Item',
+        component: () => import('@/views/Item'),
+        meta: { title: 'Item', icon: 'Item' }
+      },
+      {
+        path: 'goods',
+        name: 'Goods',
+        component: () => import('@/views/Goods'),
+        meta: { title: 'Goods', icon: 'Goods' }
       }
     ]
   },
-
+  // {
+  //   path: '/',
+  //   name: 'Layout',
+  //   component: Layout,
+  //   redirect: "/home",
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       name: 'Home',
+  //       component: HomeView
+  //     },
+  //     {
+  //       path: 'item',
+  //       name: 'Item',
+  //       component: Item
+  //     },
+  //     {
+  //       path: 'goods',
+  //       name: 'Goods',
+  //       component: Goods
+  //     }
+  //   ]
+  // },
   {
     path: '/form',
     component: Layout,
@@ -91,6 +168,7 @@ export const constantRouterMap = [
       }
     ]
   },
+
 
   // {
   //   path: '/nested',

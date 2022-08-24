@@ -230,6 +230,7 @@ export default {
 }
 
 .showcase{
+  /*background-color: #125b82;*/
   display: flex;
   height: 250px;
   /*width: 50%;*/
