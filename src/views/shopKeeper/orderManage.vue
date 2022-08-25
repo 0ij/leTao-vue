@@ -39,7 +39,7 @@
           </div>
 
           <div style="display: flex;flex-direction: row;justify-content: flex-end;margin-right: 30px">
-            <span style="margin-right: 50px">状态: {{item.state}}</span>
+            <span style="margin-right: 50px" >状态:{{onS}} </span>
             <el-button @click='onRoad(index)'>已发货</el-button>
           </div>
 
@@ -59,6 +59,8 @@ export default {
   data(){
     return{
       input: '',
+      //状态字符串
+      onS:'',
       //包含商品的信息及地址信息，地址信息？
       list:[
         {
@@ -85,7 +87,7 @@ export default {
             name:"aa",
             phone:'111111'
           }],
-          state:"已发货",
+          state:5,
           courier_number:"111-222-111"
         },{
           //gpic:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -111,7 +113,7 @@ export default {
           }],
           num:5,
           totalprice:90,
-          state:"已发货",
+          state:1,
           courier_number:"111-322-111"
         },{
           //gpic:'D://images//2022//08//25',
@@ -138,7 +140,7 @@ export default {
           num:5,
           totalprice:90,
 
-          state:"已发货",
+          state:-1,
           courier_number:"131-222-111"
         }
       ]
@@ -155,22 +157,38 @@ export default {
           //console.log(response.data.orders[0].gid);
           for (let index = 0; index < response.data.orders.length; index++) {
             const element = response.data.orders[index];
-            console.log(element.gid);
-            goods.findGoodsById(element.gid)
+            console.log("element.gid "+element.gid);
+            //地址信息还没获取
+            goods.findGoodsById(parseInt(element.gid))
               .then(response=>{
-                this.list[index].goodsList = response.data.goods;
+                this.list[index].goodsList = response.data.items;
+                console.log(response.data.items);
               })
-            console.log(this.list[index].goodsList);
+            this.recState(index);
           }
-          // this.list=response.data.orders;
-          // goods.findGoodsById(response.data.orders[0].gid)
         })
-      //由订单内商品号获取商品信息
-      //  goods.findGoodsById(this.list.gid)
-      //   .then(response=>{
-      //     console.log(response);
-      //     this.goodsList = response.data.goods;
-      //   })
+
+    },
+    recState(index){
+      //console.log(this.list[0].state)
+      if(this.list[index].state == 0){
+        this.onS = '未付款'
+        //付款按钮
+      }else if(this.list[index].state==1){
+        this.onS = '已付款'
+      }else if(this.list[index].state==2){
+        this.onS = '已发货'
+      }else if(this.list[index].state==3){
+        this.onS = '已签收'
+      }else if(this.list[index].state==4){
+        this.onS = '已申请退换货'
+      }else if(this.list[index].state==5){
+        this.onS = '已退货'
+      }else if(this.list[index].state==6){
+        this.onS = '已换货'
+      }else if(this.list[index].state==-1){
+        this.onS = '订单取消'
+      }
     },
     onRoad(index){
       console.log("发货按钮");
@@ -193,6 +211,7 @@ export default {
   created() {
     //只在界面加载时调用且只调用一次
     this.listOrders();
+    //this.recState();
   },
   computed: {
 
