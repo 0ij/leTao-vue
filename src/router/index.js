@@ -36,7 +36,7 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/userHome',
+    redirect: 'userHome',
     name: '个人中心',
     title:'个人中心',
     hidden: true,
@@ -48,36 +48,96 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/Register',
-    component: () => import('@/views/Register'),
-    name: 'Register',
-    meta: { title: 'Register', icon: 'table' }
+    path: '/customer',
+    component: () => import('@/views/Customer'),
+    name: 'Customer',
+    meta: { title: 'Customer', icon: 'table' }
   },
 
   {
-    path: '/login',
+    path: '/storekeeper',
+    component: () => import('@/views/StoreKeeper'),
+    name: 'StoreKeeper',
+    meta: { title: 'Storekeeper', icon: 'table' }
+  },
+
+  {
+    path: '/administrator',
+    component: () => import('@/views/Administrator'),
+    name: 'Administrator',
+    meta: { title: 'Administrator', icon: 'table' }
+  },
+
+  {
+    path: '/',
     component: Layout,
     name: 'Login',
     meta: { title: 'Login', icon: 'example' },
     children: [
       {
-        path: '/customer',
-        name: '/customer',
-        component: () => import('@/views/Customer'),
-        meta: { title: 'Customer', icon: 'table' }
+        path: 'user',
+        component: () => import('@/views/Login'),
+        name: 'Login',
+        meta: { title: 'Login', icon: 'table' }
       },
       {
-        path: '/StoreKeeper',
-        name: '/StoreKeeper',
-        component: () => import('@/views/StoreKeeper'),
-        meta: { title: 'StoreKeeper', icon: 'table' }
+        path: 'register',
+        component: () => import('@/views/Register'),
+        name: 'Register',
+        meta: { title: 'Register', icon: 'table' }
+      }
+    ]
+  },
+
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example',
+    meta: { title: '首页', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: 'table',
+        component: () => import('@/views/shopKeeper/evaluationManage'),
+        meta: { title: '评价管理', icon: 'table' }
       },
       {
-        path: '/Administrator',
-        name: '/Administrator',
-        component: () => import('@/views/Administrator'),
-        meta: { title: 'Administrator', icon: 'table' }
+        path: 'orderManage',
+        name: '订单管理',
+        component: () => import('@/views/shopKeeper/orderManage'),
+        meta: { title: '订单管理', icon: 'table' }
       },
+      {
+        path: 'requestManage',
+        name: '申请管理',
+        component: () => import('@/views/admin/requestManage'),
+        meta: { title: '申请管理', icon: 'table' }
+      },
+      {
+        path: 'goodsManage',
+        name: '商品管理',
+        component: () => import('@/views/shopKeeper/goodsManage'),
+        meta: { title: '商品管理', icon: 'table' }
+      },
+      {
+        path: 'homeview',
+        name: 'HomeView',
+        component: () => import('@/views/HomeView'),
+        meta: { title: 'HomeView', icon: 'table' }
+      },
+      {
+        path: 'item',
+        name: 'Item',
+        component: () => import('@/views/Item'),
+        meta: { title: 'Item', icon: 'table' }
+      },
+      {
+        path: 'goods',
+        name: 'Goods',
+        component: () => import('@/views/Goods'),
+        meta: { title: 'Goods', icon: 'table' }
+      }
     ]
   },
 
@@ -168,63 +228,6 @@ export const constantRouterMap = [
     ]
   },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '首页', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'table',
-        component: () => import('@/views/shopKeeper/evaluationManage'),
-        meta: { title: '评价管理', icon: 'table' }
-      },
-      {
-        path: 'orderManage',
-        name: '订单管理',
-        component: () => import('@/views/shopKeeper/orderManage'),
-        meta: { title: '订单管理', icon: 'table' }
-      },
-      {
-        path: 'requestManage',
-        name: '申请管理',
-        component: () => import('@/views/admin/requestManage'),
-        meta: { title: '申请管理', icon: 'table' }
-      },
-      {
-        path: 'goodsManage',
-        name: '商品管理',
-        component: () => import('@/views/shopKeeper/goodsManage'),
-        meta: { title: '商品管理', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: '树状图',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      },
-      {
-        path: 'homeview',
-        name: 'HomeView',
-        component: () => import('@/views/HomeView'),
-        meta: { title: 'HomeView', icon: 'HomeView' }
-      },
-      {
-        path: 'item',
-        name: 'Item',
-        component: () => import('@/views/Item'),
-        meta: { title: 'Item', icon: 'Item' }
-      },
-      {
-        path: 'goods',
-        name: 'Goods',
-        component: () => import('@/views/Goods'),
-        meta: { title: 'Goods', icon: 'Goods' }
-      }
-    ]
-  },
   // {
   //   path: '/',
   //   name: 'Layout',
