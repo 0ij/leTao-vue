@@ -10,10 +10,10 @@ export default {
   },
   findGoodsById(Gid){
     return request({
-      url: '/Goods/updateGoods',//后台接口的路径
+      url: '/Goods/getGoodsByID',//后台接口的路径
       method: 'post',//后台接口的请求方式
-      data:{
-        "Gid":Gid
+      params:{
+        Gid:Gid
       }
     })
   },
@@ -22,7 +22,9 @@ export default {
     return request({
       url: '/Goods/updateGoods',//后台接口的路径
       method: 'post',//后台接口的请求方式
-      data:goods
+      params:{
+        goods:goods
+      }
     })
   },
 }

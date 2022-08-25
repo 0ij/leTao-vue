@@ -4,7 +4,7 @@ export function login(username, password) {
   return request({
     url: '/user/login',//后台接口的路径
     method: 'post',//后台接口的请求方式
-    data: {
+    params: {
       username,
       password
     }

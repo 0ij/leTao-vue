@@ -8,5 +8,14 @@ export default {
       url: '/request/getRequests',//后台接口的路径
       method: 'get',//后台接口的请求方式
     })
-  }
+  },
+  getRequestById(rid){
+    return request({
+      url: '/order/getRequestByID',//后台接口的路径
+      method: 'post',//后台接口的请求方式
+      params:{
+        rid:rid
+      }
+    })
+  },
 }

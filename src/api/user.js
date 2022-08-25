@@ -4,10 +4,10 @@ export function updateCustomerNameById(cid,cname,cpassword){
   return request({
     url: '/customer/updateCustomerName',//后台接口的路径
     method: 'post',//后台接口的请求方式
-    data: {
-      cname,
-      cpassword,
-      cid
+    params: {
+      cname:cname,
+      cpassword:cpassword,
+      cid:cid
     }
   })
 }

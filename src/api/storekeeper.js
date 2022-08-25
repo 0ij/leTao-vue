@@ -9,28 +9,42 @@ export default {
   },
   deleteStorekeeperById(kid) {
     return request({
-      url: `/storekeeper/deleteStorekeeperById?kid=${kid}`,
+      // url: `/storekeeper/deleteStorekeeperById?kid=${kid}`,
+      url: `/storekeeper/deleteStorekeeperById?kid`,
       method: 'get',
+      params:{
+        kid:kid
+      }
     })
   },
   addStorekeeper(storekeeper) {
     return request({
       url: '/storekeeper/addStorekeeper',
       method: 'post',
-      data: storekeeper
+      // data: storekeeper
+      params:{
+        storekeeper:storekeeper
+      }
     })
   },
   findStorekeeperById(kid) {
     return request({
-      url: `/storekeeper/getStorekeeperById/${kid}`,
+      // url: `/storekeeper/getStorekeeperById/${kid}`,
+      url: `/storekeeper/getStorekeeperById`,
       method: 'get',
+      params:{
+        kid:kid
+      }
     })
   },
   updateStorekeeper(storekeeper) {
     return request({
       url: '/storekeeper/updateStorekeeper',
       method: 'post',
-      data: storekeeper
+      // data: storekeeper
+      params:{
+        storekeeper:storekeeper
+      }
     })
   }
 }

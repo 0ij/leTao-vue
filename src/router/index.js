@@ -29,6 +29,26 @@ import Login from "../views/Login";
   }
  **/
 export const constantRouterMap = [
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   name: 'Login',
+  //   meta: { title: 'Login', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'user',
+  //       component: () => import('@/views/Login'),
+  //       name: 'Login',
+  //       meta: { title: 'Login', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'register',
+  //       component: () => import('@/views/Register'),
+  //       name: 'Register',
+  //       meta: { title: 'Register', icon: 'table' }
+  //     }
+  //   ]
+  // },
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
 
   { path: '/404', component: () => import('@/views/404'), hidden: true },
@@ -39,7 +59,7 @@ export const constantRouterMap = [
     redirect: 'userHome',
     name: '个人中心',
     title:'个人中心',
-    hidden: true,
+    hidden: true,//不隐藏
     children: [{
       path: 'home',
       name:'home',
@@ -51,42 +71,21 @@ export const constantRouterMap = [
     path: '/customer',
     component: () => import('@/views/Customer'),
     name: 'Customer',
-    meta: { title: 'Customer', icon: 'table' }
+    meta: { title: 'Customer', icon: 'user' }
   },
 
   {
     path: '/storekeeper',
     component: () => import('@/views/StoreKeeper'),
     name: 'StoreKeeper',
-    meta: { title: 'Storekeeper', icon: 'table' }
+    meta: { title: 'Storekeeper', icon: 'user' }
   },
 
   {
     path: '/administrator',
     component: () => import('@/views/Administrator'),
     name: 'Administrator',
-    meta: { title: 'Administrator', icon: 'table' }
-  },
-
-  {
-    path: '/',
-    component: Layout,
-    name: 'Login',
-    meta: { title: 'Login', icon: 'example' },
-    children: [
-      {
-        path: 'user',
-        component: () => import('@/views/Login'),
-        name: 'Login',
-        meta: { title: 'Login', icon: 'table' }
-      },
-      {
-        path: 'register',
-        component: () => import('@/views/Register'),
-        name: 'Register',
-        meta: { title: 'Register', icon: 'table' }
-      }
-    ]
+    meta: { title: 'Administrator', icon: 'user' }
   },
 
   {
@@ -122,15 +121,15 @@ export const constantRouterMap = [
       },
       {
         path: 'homeview',
-        name: 'HomeView',
+        name: '主页',
         component: () => import('@/views/HomeView'),
-        meta: { title: 'HomeView', icon: 'table' }
+        meta: { title: '商品主页', icon: 'nested' }
       },
       {
         path: 'item',
         name: 'Item',
         component: () => import('@/views/Item'),
-        meta: { title: 'Item', icon: 'table' }
+        meta: { title: '商品详情', icon: 'table' }
       },
       {
         path: 'goods',
@@ -146,7 +145,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/shop/table',
     name: 'Shop',
-    meta: { title: 'Shop', icon: 'example' },
+    meta: { title: 'Shop', icon: 'eye' },
     children: [
       {
         path: 'table',

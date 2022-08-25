@@ -17,20 +17,29 @@ export default {
     return request({
       url: '/goodssales/addGoodssales',
       method: 'post',
-      data: goodssales
+      // data: goodssales
+      params:{
+        goodssales:goodssales
+      }
     })
   },
   findGoodssalesById(gid) {
     return request({
-      url: `/goodssales/getGoodssalesById/${gid}`,
+      url: `/goodssales/getGoodssalesById`,
       method: 'get',
+      params:{
+        gid:gid
+      }
     })
   },
   updateGoodssales(goodssales) {
     return request({
       url: '/goodssales/updateGoodssales',
       method: 'post',
-      data: goodssales
+      // data: goodssales
+      params:{
+        goodssales:goodssales
+      }
     })
   }
 }

@@ -64,7 +64,6 @@ export default {
           inventory:'890',
           sid:'12',
           onSale:'1'
-
         },{
           gid:'12',
           gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
@@ -111,8 +110,8 @@ export default {
       goods.findGoodsById(parseInt(this.input))
         .then(response=>{
           console.log(response)
+          this.list=response.data.goods;
         })
-
     },
     edit(){
       console.log("修改信息");
@@ -125,7 +124,6 @@ export default {
     off(){
       console.log("下架商品")
     }
-
   },
   created() {
     this.listGoods();
