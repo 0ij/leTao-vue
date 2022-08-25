@@ -2,28 +2,29 @@
   <div>
 
     <h1 style="margin-left: 50px">商品管理界面</h1>
-    <h1 style="margin-left: 50px">后端施工中。。。</h1>
+<!--    <h1 style="margin-left: 50px">后端施工中。。。</h1>-->
     <el-input v-model="input" placeholder="请输入商品名" style="width: 70%;margin-left: 50px"></el-input>
-    <el-button  type="primary" @click="research">搜索</el-button>
+    <el-button   type="primary" @click="research">搜索</el-button>
 
 <!--    展示列表区域-->
     <div class="card" v-for="item in list" :key="item">
-      <img class="img" :src="item.gpic" style="width: 20%;height: 20%">
+      <img class="img" :src="item.gpic" style="width: 10%">
       <div style="width: 400px">
 
-        <span class="name">{{item.gname}}</span>
+        <span class="name">商品名：{{item.gname}}</span>
         <div style="display: flex;flex-direction: row;justify-content:space-between;margin-top: 30px;">
           <span style="display:flex;width:25%;background-color: #a2d0c2;justify-content: center">款式：{{item.gtype}}</span>
-          <span style="display:flex;width:25%;background-color: #a2d0c2;justify-content: center">价格：{{ item.price }}</span>
+          <span style="display:flex;width:35%;background-color: #a2d0c2;justify-content: center">价格：{{ item.gprice }} 元</span>
           <span style="display:flex;width:25%;background-color: #a2d0c2;justify-content: center">销量：{{ item.inventory }}</span>
         </div>
+        <span class="name" style="margin-top: 30px">商品状态: {{onS}}</span>
 
       </div>
 
       <button class="button" @click="edit">修改信息</button>
       <div style="display: flex;flex-direction: column">
         <button class="button" @click="putAd">商品推广</button>
-        <button class="button" style="margin-top: 100px" @click="off">商品下架</button>
+        <button class="button" style="margin-top: 100px" @click="off">{{ onSB }}</button>
       </div>
 
     </div>
@@ -32,20 +33,25 @@
 </template>
 
 <script>
+import goods from "@/api/goods"
+import axios from "axios";
+
 export default {
   name: "goodsManage",
   data(){
     return{
       input:'',
+      onS:'',
+      onSB:'',
       form: {
-        gid:'121',
-        gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
-        gname:'衣服',
-        gtype:'11',
-        price:'134',
-        inventory:'890',
-        sid:'12',
-        onsale:'1'
+        gid:'12',
+        // gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
+        // gname:'衣服',
+        // gtype:'11',
+        // gprice:'134',
+        // inventory:'890',
+        // sid:'12',
+        // onSale:'1'
       },
       formLabelWidth: '120px',
       list:[
@@ -57,7 +63,7 @@ export default {
           price:'134',
           inventory:'890',
           sid:'12',
-          onsale:'1'
+          onSale:'1'
 
         },{
           gid:'12',
@@ -67,7 +73,7 @@ export default {
           price:'134',
           inventory:'890',
           sid:'12',
-          onsale:'1'
+          onSale:'1'
         },
         {
           gid:'1',
@@ -77,14 +83,36 @@ export default {
           price:'134',
           inventory:'890',
           sid:'12',
-          onsale:'1'
+          onSale:'1'
         }
       ]
     }
   },
   methods:{
+    listGoods(){
+      goods.getGoodsList()
+        .then(response=>{
+          console.log(response);
+          this.list=response.data.Goods;
+          if(response.data.Goods.onSale==true){
+            this.onS = '未下架'
+            this.onSB = '商品下架'
+          }else{
+            this.onS = '已下架'
+            this.onSB = '商品上架'
+          }
+
+        })
+    },
     research(){
       console.log("搜索");
+      // this.form.gid=parseInt(this.input)
+       console.log("this.input "+this.input) ;
+      goods.findGoodsById(parseInt(this.input))
+        .then(response=>{
+          console.log(response)
+        })
+
     },
     edit(){
       console.log("修改信息");
@@ -100,7 +128,7 @@ export default {
 
   },
   created() {
-
+    this.listGoods();
   },
   computed(){
 

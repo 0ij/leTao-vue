@@ -37,17 +37,13 @@
         <el-button>已发货</el-button>
       </div>
     </div>
-
-
   </div>
-
-
-
 </div>
 </template>
 
 <script>
 import order from "@/api/order"
+import goods from "@/api/goods"
 
 export default {
   name: "orderManage",
@@ -77,7 +73,7 @@ export default {
           state:"已发货",
           courier_number:"111-322-111"
         },{
-          gpic:'https://pic2.zhimg.com/v2-18838eb20e29405d13ddb2244266f64a_r.jpg',
+          gpic:'D://images//2022//08//25',
           Oid:11,
           Gid: 11,
           Cid:22,
@@ -99,12 +95,18 @@ export default {
         .then(response=>{
           console.log(response);
           this.list=response.data.orders;
+
+        })
+      goods.getGoodsList()
+        .then(response=>{
+          console.log(response);
         })
     },
     research() {
       console.log("搜索！")
       console.log(this.input)
-      order.getOrderById(this.input)
+      console.log(parseInt(this.input))
+      order.getOrderById(parseInt(this.input))
         .then(response=>{
           console.log(response);
         })

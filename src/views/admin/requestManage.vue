@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1 style="margin-left: 50px">申请管理界面</h1>
-    <h1 style="margin-left: 50px">后端施工中。。。</h1>
 
     <el-input v-model="input" placeholder="请输入订单号" style="width: 300px;margin-left: 50px"></el-input>
     <el-button type="primary">搜索</el-button>
@@ -73,7 +72,7 @@ export default {
   },
   created() {
     console.log("申请界面。。。");
-   //this.getRequests();
+    this.getRequests();
   },
   computed:{
 

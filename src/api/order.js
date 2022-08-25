@@ -10,10 +10,18 @@ export default {
     })
   },
 
-  getOrderById(){
+  getOrderById(oid){
     return request({
-      url: '/order/getOrderByOid',//后台接口的路径
+      url: '/order/getOrderByOid/oid',//后台接口的路径
       method: 'get',//后台接口的请求方式
     })
-  }
+  },
+
+  updateOrder(order){
+    return request({
+      url: '/order/updateOrder',//后台接口的路径
+      method: 'post',//后台接口的请求方式
+      data:order
+    })
+  },
 }

@@ -7,12 +7,12 @@ export default {
       method: 'get',
     })
   },
-  deleteGoodssalesById(gid) {
-    return request({
-      url: `/goodssales/deleteGoodssalesById?gid=${gid}`,
-      method: 'get',
-    })
-  },
+  // deleteGoodssalesById(gid) {
+  //   return request({
+  //     url: `/goodssales/deleteGoodssalesById?gid=${gid}`,
+  //     method: 'get',
+  //   })
+  // },
   addGoodssales(goodssales) {
     return request({
       url: '/goodssales/addGoodssales',
