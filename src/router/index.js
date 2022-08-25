@@ -14,6 +14,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
+import Login from "../views/Login";
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -35,6 +36,18 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
+    redirect: '/dashboard',
+    name: 'Dashboard',
+    hidden: true,
+    children: [{
+      path: 'dashboard',
+      component: () => import('@/views/dashboard/index')
+    }]
+  },
+
+  {
+    path: '/',
+    component: Layout,
     redirect: '/userHome',
     name: '个人中心',
     title:'个人中心',
@@ -45,34 +58,125 @@ export const constantRouterMap = [
       component: () => import('@/views/userHome/index')//点击侧边栏后将跳转到的路径
     }]
   },
+
   {
-    path: '/',
+    path: '/Register',
+    component: () => import('@/views/Register'),
+    name: 'Register',
+    meta: { title: 'Register', icon: 'table' }
+  },
+
+  {
+    path: '/login',
     component: Layout,
+    name: 'Login',
+    meta: { title: 'Login', icon: 'example' },
     children: [
-      {
-        path: '/Register',
-        name: 'Register',
-        component: () => import('@/views/Register'),
-        meta: { title: 'Register', icon: 'Register' }
-      },
       {
         path: '/customer',
         name: '/customer',
         component: () => import('@/views/Customer'),
-        meta: { title: 'Customer', icon: 'Customer' }
+        meta: { title: 'Customer', icon: 'table' }
       },
       {
         path: '/StoreKeeper',
         name: '/StoreKeeper',
         component: () => import('@/views/StoreKeeper'),
-        meta: { title: 'StoreKeeper', icon: 'StoreKeeper' }
+        meta: { title: 'StoreKeeper', icon: 'table' }
       },
       {
         path: '/Administrator',
         name: '/Administrator',
         component: () => import('@/views/Administrator'),
-        meta: { title: 'Administrator', icon: 'Administrator' }
+        meta: { title: 'Administrator', icon: 'table' }
       },
+    ]
+  },
+
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/table',
+    name: 'Shop',
+    meta: { title: 'Shop', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: 'ShopList',
+        component: () => import('@/views/shop/list'),
+        meta: { title: 'ShopList', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'ShopAdd',
+        component: () => import('@/views/shop/save'),
+        meta: { title: 'ShopAdd', icon: 'tree' }
+      },
+      {
+        path: 'edit/:sid',
+        name: 'ShopEdit',
+        component: () => import('@/views/shop/save'),
+        meta: { title: 'ShopEdit', icon: 'tree' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/goodssales',
+    component: Layout,
+    redirect: '/goodssales/table',
+    name: 'Goodssales',
+    meta: { title: 'Goodssales', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: 'GoodssalesList',
+        component: () => import('@/views/goodssales/list'),
+        meta: { title: 'GoodssalesList', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'GoodssalesAdd',
+        component: () => import('@/views/goodssales/save'),
+        meta: { title: 'GoodssalesAdd', icon: 'tree' }
+      },
+      {
+        path: 'edit/:gid',
+        name: 'GoodssalesEdit',
+        component: () => import('@/views/goodssales/save'),
+        meta: { title: 'GoodssalesEdit', icon: 'tree' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/storekeeper',
+    component: Layout,
+    redirect: '/storekeeper/table',
+    name: 'Storekeeper',
+    meta: { title: 'Storekeeper', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: 'StorekeeperList',
+        component: () => import('@/views/storekeeper/list'),
+        meta: { title: 'StorekeeperList', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'StorekeeperAdd',
+        component: () => import('@/views/storekeeper/save'),
+        meta: { title: 'StorekeeperAdd', icon: 'tree' }
+      },
+      {
+        path: 'edit/:kid',
+        name: 'StorekeeperEdit',
+        component: () => import('@/views/storekeeper/save'),
+        meta: { title: 'StorekeeperEdit', icon: 'tree' },
+        hidden: true
+      }
     ]
   },
 
