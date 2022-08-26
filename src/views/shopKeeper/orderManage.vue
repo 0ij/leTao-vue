@@ -8,8 +8,8 @@
   <!--    展示列表区域-->
   <div style="display: flex;flex-direction: column" v-for="(item,index) in list" :key="item">
     <div class="card" >
-      <div v-for="(data,k) in item.goodsList":key="k">
-        <!--    <img class="img" :src="item.gpic" style="width: 20%;height: 20%">-->
+<!--      <div v-for="(data,k) in item.goodsList":key="k" >-->
+      <div v-for="(data,k) in item.goodsList":key="k" >
         <!--      上半部分横向-->
           <div  style="background-color: #ffffff;display: flex;flex-direction: row;justify-content: space-around">
             <img class="img" :src="data.gpic" style="width: 20%;height: 20%">
@@ -40,7 +40,7 @@
 
           <div style="display: flex;flex-direction: row;justify-content: flex-end;margin-right: 30px">
             <span style="margin-right: 50px" >状态:{{onS}} </span>
-            <el-button @click='onRoad(index)'>已发货</el-button>
+            <el-button @click='onRoad(index)' v-show="isShow">{{buMess}}</el-button>
           </div>
 
     </div>
@@ -59,111 +59,75 @@ export default {
   data(){
     return{
       input: '',
+      isShow: true,
+      buMess:'测试！！',
       //状态字符串
       onS:'',
+      goodsList:[
+        {
+          gid:'121',
+          gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
+          gname:'衣服1',
+          gtype:'11',
+          price:'134',
+          inventory:'890',
+          sid:'12',
+          onSale:'1'
+        }
+      ],
       //包含商品的信息及地址信息，地址信息？
       list:[
-        {
-          //gpic:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          oid:11,
-          gid: 11,
-          goodsList:[
-            {
-              gid:'121',
-              gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
-              gname:'衣服1',
-              gtype:'11',
-              price:'134',
-              inventory:'890',
-              sid:'12',
-              onSale:'1'
-            }
-          ],
-          cid:22,
-          num:5,
-          totalprice:90,
-          cusInfo:[{
-            address:"布达佩斯大饭店",
-            name:"aa",
-            phone:'111111'
-          }],
-          state:5,
-          courier_number:"111-222-111"
-        },{
-          //gpic:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          oid:11,
-          gid: 11,
-          goodsList:[
-            {
-              gid:'121',
-              gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
-              gname:'衣服1',
-              gtype:'11',
-              price:'134',
-              inventory:'890',
-              sid:'12',
-              onSale:'1'
-            }
-          ],
-          cid:22,
-          cusInfo:[{
-            address:"布达佩斯大饭店",
-            name:"aa",
-            phone:'111111'
-          }],
-          num:5,
-          totalprice:90,
-          state:1,
-          courier_number:"111-322-111"
-        },{
-          //gpic:'D://images//2022//08//25',
-          oid:11,
-          gid: 11,
-          goodsList:[
-            {
-              gid:'121',
-              gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
-              gname:'衣服1',
-              gtype:'11',
-              price:'134',
-              inventory:'890',
-              sid:'12',
-              onSale:'1'
-            }
-          ],
-          cid:22,
-          cusInfo:[{
-            address:"布达佩斯大饭店",
-            name:"aa",
-            phone:'111111'
-          }],
-          num:5,
-          totalprice:90,
 
-          state:-1,
-          courier_number:"131-222-111"
-        }
+          //gpic:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+         //  oid:1,
+         //  gid: 11,
+         //
+         //  cid:22,
+         //  num:5,
+         //  totalprice:90,
+         //  cusInfo:[{
+         //    address:"布达佩斯大饭店",
+         //    name:"aa",
+         //    phone:'111111'
+         //  }],
+         //  state:5,
+         //  courier_number:"111-222-111"
+         // }
+
       ]
     }
   },
   methods: {
     handleClick(row) {
-      console.log(row);
+      //console.log(row);
     },
     listOrders(){
       order.getOrderList()
         .then(response=>{
-          console.log(response);
-          //console.log(response.data.orders[0].gid);
+          this.list=response.data.orders;
           for (let index = 0; index < response.data.orders.length; index++) {
             const element = response.data.orders[index];
-            console.log("element.gid "+element.gid);
-            //地址信息还没获取
             goods.findGoodsById(parseInt(element.gid))
               .then(response=>{
+               // console.log(response.data.items);
                 this.list[index].goodsList = response.data.items;
-                console.log(response.data.items);
+                //console.log(response.data.items);
+                console.log(this.list[index].goodsList);
               })
+
+            // this.list.oid=response.data.orders.oid;
+            // this.list.gid=response.data.orders.gid;
+            // this.list.cid=response.data.orders.cid;
+            // this.list.num=response.data.orders.num;
+            // this.list.totalprice=response.data.orders.totalprice;
+            // this.list.state=response.data.orders.state;
+            // this.list.courier_number=response.data.orders.courier_number;
+
+            //console.log(response.data.orders[0].gid);
+
+           // console.log("element.gid "+element.gid);
+            //地址信息还没获取
+
             this.recState(index);
           }
         })
@@ -173,15 +137,19 @@ export default {
       //console.log(this.list[0].state)
       if(this.list[index].state == 0){
         this.onS = '未付款'
+
         //付款按钮
       }else if(this.list[index].state==1){
         this.onS = '已付款'
+        this.buMess = '已发货'
       }else if(this.list[index].state==2){
         this.onS = '已发货'
+
       }else if(this.list[index].state==3){
         this.onS = '已签收'
       }else if(this.list[index].state==4){
         this.onS = '已申请退换货'
+        this.buMess = '处理'
       }else if(this.list[index].state==5){
         this.onS = '已退货'
       }else if(this.list[index].state==6){
@@ -194,7 +162,7 @@ export default {
       console.log("发货按钮");
       console.log(index)
       console.log(this.list[index])
-      this.list[index].state='已发货';//实际为数字存储
+      this.list[index].state='2';//实际为数字存储
     },
     research() {
       console.log("搜索！")

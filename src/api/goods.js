@@ -17,7 +17,15 @@ export default {
       }
     })
   },
-
+  findGoodsByName(Gname){
+    return request({
+      url: '/Goods/getGoodsByName',//后台接口的路径
+      method: 'post',//后台接口的请求方式
+      params:{
+        Gname:Gname
+      }
+    })
+  },
   updateGoods(goods){
     return request({
       url: '/Goods/updateGoods',//后台接口的路径
