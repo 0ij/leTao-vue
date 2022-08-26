@@ -49,6 +49,7 @@ const user = {
     // 获取用户信息
     GetInfo({ commit, state }) {
       console.log("store/modules/user.js中的获取用户信息的函数被调用")
+      console.log("测试state: "+state.name)
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
           const data = response.data
@@ -94,14 +95,24 @@ const user = {
         resolve()
       })
     },
-    // ChangeName({commit},info){
-    //   return new Promise(resolve => {
-    //     updateCustomerNameById(info.cid,info.newName).then(response=>{
-    //       commit('SET_NAME', data.name)
-    //     })
-    //
-    //   })
-    // }
+    ChangeName({commit,state},info){
+      console.log("名字修改函数被调用")
+      return new Promise((resolve,reject) => {
+        updateCustomerNameById(info.cid,info.cname,info.cpassword).then(response=>{
+          const data = response.data
+          commit('SET_NAME', data.name)
+          console.log(response)
+          console.log("名字修改成功")
+          resolve(response)
+        }).catch(error=>{
+          reject(error)
+          console.log( "info.cid: "+info.cid+"  info.cname:"+info.cname)
+          console.log("失败！")
+
+        })
+
+      })
+    }
   }
 }
 

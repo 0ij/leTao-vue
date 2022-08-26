@@ -10,7 +10,7 @@
       <div class="showcase">
         <div class="line">
           <span style="margin-right: 20px">用户名：</span>
-          <span style="width: 100px">{{mydata.Cname}}</span>
+          <span style="width: 100px">{{myData.cname}}</span>
           <el-input v-model:class="newName" v-show="isShow" style="margin-left: 30px"></el-input>
           <el-button @click="changeName"  size='mini' style="margin-left: 50px">编辑</el-button>
           <el-button v-show="isShow" size='mini' @click="saveNewName"  style="margin-left: 50px">保存</el-button>
@@ -19,12 +19,12 @@
 
         <div class="line">
           <span style="margin-right: 20px">用户编号：</span>
-          <span>{{mydata.Cid}}</span>
+          <span>{{myData.cid}}</span>
         </div>
 
         <div class="line">
           <span style="margin-right: 20px">余额：</span>
-          <span>{{mydata.money}}</span>
+          <span>{{myData.money}}</span>
           <el-button @click="recharge"  size='mini' style="margin-left: 150px">充值</el-button>
         </div>
 
@@ -39,7 +39,7 @@
       :before-remove="beforeRemove"
       :on-exceed="handleExceed"
       :file-list="fileList">
-      <el-button size="small" type="primary">修改头像</el-button>
+      <el-button size="small" type="primary" >修改头像</el-button>
 <!--      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
     </el-upload>
     <div style="margin-top: 30px">
@@ -109,13 +109,17 @@ export default {
       newName:'',
       fileList: [],
 
-      mydata:{
-        Cid:7,
-        Cname:'胡图图',
+      myData:{
+        cid:7,
+        cname:'胡图图',
         Cpassword:'',
 
         // pic:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
         // money:'1000'
+      },
+      loginForm: {
+        username: 'bobbob',
+        password: '44444444'
       },
       list:[
         {
@@ -146,9 +150,9 @@ export default {
     setInfo(){
       this.$store.dispatch('GetInfo',this.loginForm).then(()=>{
         console.log("实时用户！！！！")
-        console.log(this.mydata.Cname );
+        console.log(this.myData.cname );
         console.log(user.state.name );
-        this.mydata.Cname=user.state.name;
+        this.myData.name=user.state.name;
 
         }
       )
@@ -157,10 +161,7 @@ export default {
     changeName(){
       console.log("点击修改名字按钮")
       this.isShow = true;
-      this.$store.dispatch('ChangeName',this.mydata).then(()=>{
-          // console.log("111111")
-        }
-      )
+
     },
     saveNewName(){
       if(this.newName==''){
@@ -174,18 +175,21 @@ export default {
           }
         });
       }else{
-        this.mydata.Cname=this.newName;
+        this.myData.Cname=this.newName;
         console.log("保存修改后的名字");
 
         this.isShow=false;
         user.state.name=this.newName;
         //写回数据库
-        console.log(this.mydata.Cid);
-        console.log(this.newName);
-        user1.updateCustomerNameById(this.mydata.Cid,this.newName)
-          .then(response=>{
-          })
-        this.newName='';
+        console.log("this.myData.Cid:"+this.myData.Cid);
+        console.log("this.myData.Cname:"+this.myData.cname);
+        console.log("this.newName:"+this.newName);
+        this.$store.dispatch('ChangeName',this.myData).then(()=>{
+           console.log("111111")
+        });
+
+
+        //this.newName='';
       }
 
     },

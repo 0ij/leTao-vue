@@ -7,15 +7,14 @@ export default {
     return request({
       url: '/evaluation/getEvaluations',//后台接口的路径
       method: 'get',//后台接口的请求方式
-
     })
   },
-  getEvaluationByOid(id){
+  getEvaluationByOid(oid){
     return request({
       url: '/evaluation/getEvaluationByOid',//后台接口的路径
       method: 'post',//后台接口的请求方式
-      data:{
-        id
+      params:{
+        oid:oid
       }
     })
   }

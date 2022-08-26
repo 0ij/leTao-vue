@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import {CustomerLogin} from "../api/customer";
+
 export default {
   name: "Customer",
   data() {
@@ -38,8 +40,21 @@ export default {
     }
   },
   methods: {
-    login() {
+    login(form) {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          CustomerLogin(this.customer).then(response => {
+            if(this.cname === this.form.cname && this.cpassword === this.form.cpassword) {
+              this.$router.push('/home');
+            }
+          }).catch(reason => {
 
+          })
+        } else {
+          console.log("Error submit!");
+          return false;
+        }
+      })
     }
   }
 }

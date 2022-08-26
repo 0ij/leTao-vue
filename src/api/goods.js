@@ -1,29 +1,29 @@
 import request from '@/utils/request'
 
-//订单界面设计的接口
 export default {
   //获取所有订单
-  getOrderList(){
+  getGoodsList(){
     return request({
-      url: '/order/getOrders',//后台接口的路径
+      url: '/Goods/getGoods',//后台接口的路径
       method: 'get',//后台接口的请求方式
     })
   },
-  getOrderById(oid){
+  findGoodsById(Gid){
     return request({
-      url: '/order/getOrderByOid',//后台接口的路径
+      url: '/Goods/getGoodsByID',//后台接口的路径
       method: 'post',//后台接口的请求方式
       params:{
-        oid:oid
+        Gid:Gid
       }
     })
   },
-  updateOrder(order){
+
+  updateGoods(goods){
     return request({
-      url: '/order/updateOrder',//后台接口的路径
+      url: '/Goods/updateGoods',//后台接口的路径
       method: 'post',//后台接口的请求方式
       params:{
-        order:order
+        goods:goods
       }
     })
   },
