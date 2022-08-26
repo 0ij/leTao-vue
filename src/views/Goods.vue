@@ -27,7 +27,26 @@ export default {
   },
   data() {
     return {
-
+        // list:[{
+        //   gid:'121',
+        //   gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
+        //   gname:'衣服1',
+        //   gtype:'11',
+        //   price:'134',
+        //   inventory:'890',
+        //   sid:'12',
+        //   onSale:'1'
+        // },{
+        //   gid:'1',
+        //   gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
+        //   gname:'衣服3',
+        //   gtype:'11',
+        //   price:'134',
+        //   inventory:'890',
+        //   sid:'12',
+        //   onSale:'1'
+        // }
+        // ]
     }
   },
   // created() {

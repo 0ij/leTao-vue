@@ -29,20 +29,6 @@ import Login from "../views/Login";
   }
  **/
 export const constantRouterMap = [
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   name: 'Login',
-  //   meta: { title: 'Login', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'register',
-  //       component: () => import('@/views/Register'),
-  //       name: 'Register',
-  //       meta: { title: 'Register', icon: 'table' }
-  //     }
-  //   ]
-  // },
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
 
   { path: '/404', component: () => import('@/views/404'), hidden: true },

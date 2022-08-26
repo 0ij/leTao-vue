@@ -11,11 +11,22 @@ export default {
   },
   getRequestById(rid){
     return request({
-      url: '/order/getRequestByID',//后台接口的路径
+      url: '/request/getRequestByID',//后台接口的路径
       method: 'post',//后台接口的请求方式
+      contentType:"application/json",
       params:{
         rid:rid
       }
     })
   },
+  changeResult(form){
+    return request({
+      url: '/request/updateRequest',//后台接口的路径
+      method: 'post',//后台接口的请求方式
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(form)
+    })
+  }
 }

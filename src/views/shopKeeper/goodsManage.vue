@@ -2,9 +2,9 @@
   <div>
 
     <h1 style="margin-left: 50px">商品管理界面</h1>
-<!--    <h1 style="margin-left: 50px">后端施工中。。。</h1>-->
+    <h1 style="margin-left: 50px">后端施工中。。。</h1>
     <el-input v-model="input" placeholder="请输入商品名" style="width: 70%;margin-left: 50px"></el-input>
-    <el-button   type="primary" @click="research">搜索</el-button>
+    <el-button  type="primary" @click="research">搜索</el-button>
 
 <!--    展示列表区域-->
     <div class="card" v-for="item in list" :key="item">
@@ -17,7 +17,6 @@
           <span style="display:flex;width:35%;background-color: #a2d0c2;justify-content: center">价格：{{ item.gprice }} 元</span>
           <span style="display:flex;width:25%;background-color: #a2d0c2;justify-content: center">销量：{{ item.inventory }}</span>
         </div>
-        <span class="name" style="margin-top: 30px">商品状态: {{onS}}</span>
 
       </div>
 
@@ -28,6 +27,10 @@
       </div>
 
     </div>
+    <br>
+    <div class="card" v-show="isShow"> 没有搜索的商品</div>
+    <div class="card" v-show="isShow1"> 无数据</div>
+
   </div>
 
 </template>
@@ -43,6 +46,8 @@ export default {
       input:'',
       onS:'',
       onSB:'',
+      isShow:false,
+      isShow1:false,
       form: {
         gid:'12',
         // gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
@@ -101,6 +106,9 @@ export default {
             this.onSB = '商品上架'
           }
 
+          if(response.data.Goods.length==0){
+            this.isShow1=true;
+          }
         })
     },
     research(){
@@ -111,6 +119,9 @@ export default {
         .then(response=>{
           console.log(response)
           this.list=response.data.goods;
+          if(response.data.Goods==null){
+            this.isShow=true;
+          }
         })
     },
     edit(){
