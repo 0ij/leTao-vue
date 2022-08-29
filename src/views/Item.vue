@@ -1,90 +1,48 @@
 <template>
   <div>
-    <h1>商品详情界面</h1>
-<!--    <el-container >-->
+    <h1 style="margin-left: 50px">商品详情界面</h1>
     <div class="outerbox">
-<!--      <div class="block">-->
-<!--        <el-carousel trigger="click" height="150px">-->
-<!--          <el-carousel-item v-for="item in 4" :key="item">-->
-<!--            <h3 class="small">{{ item }}</h3>-->
-<!--          </el-carousel-item>-->
-<!--        </el-carousel>-->
-<!--      </div>-->
       <div >
-        <div class="block" style="width: 400px;height: 400px">
-
+        <div class="block" style="margin-left:20px;width: 400px;height: 400px">
           <el-carousel trigger="click" height="400px">
             <el-carousel-item v-for="item in list" :key="item" style="width: 400px;height: 400px;display:flex;align-items:stretch">
               <img class="img" :src="item.src" style="width: 400px">
             </el-carousel-item>
           </el-carousel>
         </div>
-<!--        <el-tabs :tab-position="tabPosition" style="width: 400px;height: 400px;margin-left: 20px">-->
-<!--          <el-tab-pane label="1">-->
-<!--            <el-image :src="src1" style="height: 400px"></el-image>-->
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="2">-->
-<!--            <el-image :src="src2" style="height: 400px"></el-image>-->
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="3">-->
-<!--            <el-image :src="src3" style="height: 400px"></el-image>-->
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="4">-->
-<!--            <el-image :src="src4" style="height: 400px"></el-image>-->
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="5">-->
-<!--            <el-image :src="src5" style="height: 400px"></el-image>-->
-<!--          </el-tab-pane>-->
-<!--        </el-tabs>-->
-
-<!--        <el-tabs :tab-position="tabPosition" style="width: 400px;height: 400px;margin-left: 20px">-->
-<!--          <el-tab-pane  v-for="(item, index) in list" :key="index" label=index>-->
-<!--            <img class="img" :src="item.src" style="width: 400px">-->
-<!--          </el-tab-pane>-->
-<!--        </el-tabs>-->
       </div>
 
-      <div style="margin-left: 20px">
+<!--      右边部分-->
+      <div style="display:flex;flex-direction: column;margin-left: 20px">
         <el-descriptions title="商品详情">
           <el-descriptions-item label="名称">
-            <el-button type="text" disabled>OPPO手机</el-button>
+            {{ goods.gname }}
           </el-descriptions-item>
           <el-descriptions-item label="描述">
-            <el-button type="text" disabled>5G</el-button>
+            尚无
           </el-descriptions-item>
           <el-descriptions-item label="库存">
-            <el-button type="text" disabled>10000</el-button>
+            {{ goods.inventory }}
           </el-descriptions-item>
           <el-descriptions-item label="销量">
-            <el-button type="text" disabled>2000</el-button>
+            暂无
           </el-descriptions-item>
           <el-descriptions-item label="单价">
-            <el-button type="text" disabled>3999</el-button>
+            {{ goods.gprice }}
           </el-descriptions-item>
           <el-descriptions-item label="选购数量">
             <el-input-number v-model="num" @change="handleChange" :min="1" label="描述文字"></el-input-number>
           </el-descriptions-item>
         </el-descriptions>
 
-        <el-button style="color: crimson;flex: 1">加入购物车</el-button>
-        <el-button style="color: crimson;flex: 1">购买</el-button>
+        <div>
+          <el-button style="color: crimson;flex: 1">加入购物车</el-button>
+          <el-button style="color: crimson;flex: 1">购买</el-button>
+        </div>
       </div>
+
+
     </div>
-
-
-
-<!--      <el-aside class="showcase">-->
-
-<!--      </el-aside>-->
-
-<!--      <el-container >-->
-<!--        <h1>什么？</h1>-->
-<!--        <el-main style="margin: 10px 200px">-->
-
-
-<!--        </el-main>-->
-<!--      </el-container>-->
-<!--    </el-container>-->
   </div>
 
 </template>
@@ -95,6 +53,7 @@ export default {
   name: "Item",
   data() {
     return {
+      goods:[],
       list:[
         {
           src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage109.360doc.com%2FDownloadImg%2F2020%2F07%2F3018%2F197737862_2_20200730065908771&refer=http%3A%2F%2Fimage109.360doc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663847860&t=bc22047512cece3590f76cd0e07864a8'
@@ -119,6 +78,10 @@ export default {
       input5: ''
     }
   },
+  created() {
+    this.goods=this.$store.state.goods;
+    console.log(this.goods);
+  },
   methods: {
     handleChange(value) {
       console.log(value);
@@ -133,6 +96,7 @@ export default {
   flex-direction: row;
   align-items:center;
 }
+
 .showcase{
   margin-left:20px;
   width: 400px;

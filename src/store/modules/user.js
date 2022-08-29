@@ -9,7 +9,6 @@ const user = {
     name: '',
     avatar: '',
     roles: []
-
   },
 
   mutations: {

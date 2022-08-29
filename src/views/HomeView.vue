@@ -17,7 +17,7 @@
         <div style="margin: 10px 0">
           <el-input
             style="width: 50%"
-            placeholder="请输入内容"
+            placeholder="请输入商品名"
             clearable
             v-model="input">
           </el-input>
@@ -33,9 +33,12 @@
                 <span>{{ item.gname }}</span>
                 <div>￥ {{ item.price }}</div>
                 <div class="bottom clearfix">
-                  <el-button type="text" class="button" @click="load">详情</el-button>
+                  <el-button type="text" class="button" @click="load(index)">详情</el-button>
                 </div>
               </div>
+            </el-card>
+            <el-card :body-style="{ padding: '0px' }" v-show="isShow">
+              无搜索商品
             </el-card>
           </el-col>
         </el-row>
@@ -59,6 +62,7 @@ export default {
   data() {
     return {
       input: '',
+      isShow:false,
       imgList: [
         {id: 0, src: 'https://m.360buyimg.com/mobilecms/s750x750_jfs/t20590/215/515426016/219946/fe4c5796/5b0faae4N6f3aab95.jpg!q80.dpg'},
         {id: 1, src: 'https://imgcps.jd.com/img-cubic/creative_server_cia/v2/2000366/100036301392/FocusFullshop/CkNqZnMvdDEvMjA5OTUyLzE1LzI0MTY4LzYyMzE2LzYyZmJlZTRiRWQyMjk1NDRmL2ExODdhZmFlNDdkZTJiODUucG5nEgkzLXR5XzBfNTQwAjjui3pCEAoM6I2j6ICA5omL5py6EAFCEAoM56aP5Yip54uC5LqrEAJCEAoM56uL5Y2z5oqi6LStEAZCCgoG56eN6I2JEAdY0KSD1fQC/cr/s/q.jpg'},
@@ -93,15 +97,34 @@ export default {
   },
   methods: {
     search() {
+      console.log("搜索");
+      // this.form.gid=parseInt(this.input)
+      console.log("this.input "+this.input) ;
+      if(this.input==''){
+        alert("请输入商品名")
+      }else{
+        goods.findGoodsByName(this.input)
+          .then(response=>{
+            console.log(response)
+            this.list=response.data.goodsList;
+            //返回失败message之后直接有alert弹窗
+            // if(response.data.goodsList==null){
+            //   this.isShow=true;
+            // }
+          })
+      }
 
     },
-    load() {
+    load(index) {
+      console.log(this.list[index])
+      this.$store.commit("SET_GOODS",this.list[index])
+      console.log("store获取值"+this.$store.state.goods);
       router.push('/item')
     },
     listGoods(){
       goods.getGoodsList()
         .then(response=>{
-          console.log(response);
+         // console.log(response);
           this.list=response.data.Goods;
           if(response.data.Goods.onSale==true){
             // this.onS = '未下架'
