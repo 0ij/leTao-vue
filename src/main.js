@@ -16,11 +16,11 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+ElementUI.Dialog.props.closeOnClickModal.default = false;
 Vue.use(ElementUI, { locale })
 
 // Vue.prototype.$axios = axios
 // axios.defaults.baseURL = '/api'        //关键代码
-Vue.config.productionTip = false
 Vue.config.silent = true
 
 new Vue({

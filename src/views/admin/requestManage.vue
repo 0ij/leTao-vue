@@ -128,13 +128,19 @@ export default {
         })
     },
     research(){
-      request.getRequestById(parseInt(this.input))
-        .then(response=>{
-         // console.log("response"+response);
-          this.list='';
-          this.list=response.data.items;
-          //console.log("response"+response);
-        })
+      if(this.input==''){
+        alert("请填入数据")
+      }else{
+        request.getRequestById(parseInt(this.input))
+          .then(response=>{
+            if(response.data.message=='失败'){
+              //alert("无搜索结果")
+            }else{
+              this.list='';
+              this.list=response.data.items;
+            }
+          })
+      }
     },
     //结果（状态）由数字识别为字符串，el表格必须绑定list内元素？
     // recState(res){
