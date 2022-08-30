@@ -2,9 +2,8 @@
   <div>
 
     <h1 style="margin-left: 50px">商品管理界面</h1>
-    <h1 style="margin-left: 50px">后端施工中。。。</h1>
-    <el-input v-model="input" placeholder="请输入商品名" style="width: 70%;margin-left: 50px"></el-input>
-    <el-button  type="primary" @click="research">搜索</el-button>
+    <el-input v-model="input" placeholder="请输入商品id进行查询" style="width: 70%;margin-left: 50px"></el-input>
+    <el-button   type="primary" @click="research">搜索</el-button>
 
 <!--    展示列表区域-->
     <div class="card" v-for="item in list" :key="item">
@@ -17,6 +16,7 @@
           <span style="display:flex;width:35%;background-color: #a2d0c2;justify-content: center">价格：{{ item.gprice }} 元</span>
           <span style="display:flex;width:25%;background-color: #a2d0c2;justify-content: center">销量：{{ item.inventory }}</span>
         </div>
+        <span class="name" style="margin-top: 30px">商品状态: {{onS}}</span>
 
       </div>
 
@@ -118,8 +118,8 @@ export default {
       goods.findGoodsById(parseInt(this.input))
         .then(response=>{
           console.log(response)
-          this.list=response.data.goods;
-          if(response.data.Goods==null){
+          this.list=response.data.items;
+          if(response.data.items==null){
             this.isShow=true;
           }
         })

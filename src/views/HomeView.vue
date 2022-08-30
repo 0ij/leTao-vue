@@ -31,7 +31,7 @@
               <img class="img" :src="item.gpic" style="width: 10%">
               <div style="padding: 14px;">
                 <span>{{ item.gname }}</span>
-                <div>￥ {{ item.price }}</div>
+                <div>￥ {{ item.gprice }}</div>
                 <div class="bottom clearfix">
                   <el-button type="text" class="button" @click="load(index)">详情</el-button>
                 </div>
