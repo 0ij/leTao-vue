@@ -17,13 +17,13 @@ export default {
   //   return request({
   //     url: '/customer/updateCustomerName',//后台接口的路径
   //     method: 'post',//后台接口的请求方式
-  //     data: {
-  //       cid,
-  //       name
+  //     params: {
+  //       cid:cid,
+  //       name:name
   //     }
   //   })
   // },
-  //获取所有订单
+  //获取所有顾客的信息
   getUserInfo(){
     return request({
       url: '/customer/getCustomer',//后台接口的路径
@@ -37,6 +37,15 @@ export default {
       url: '/upload',//后台接口的路径
       method: 'post',//后台接口的请求方式
 
+    })
+  },
+  getAddress(cid){
+    return request({
+      url: '/Address/getAddressByCid',//后台接口的路径
+      method: 'get',//后台接口的请求方式
+      params:{
+        cid:cid
+      }
     })
   }
 }

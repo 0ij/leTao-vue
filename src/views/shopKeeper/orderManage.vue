@@ -29,7 +29,7 @@
       </div>
 
           <span style="background-color: #ffffff">订单号：{{item.oid}}</span>
-          <span style="background-color: #ffffff">快递号：{{item.courier_number}}</span>
+          <span style="background-color: #ffffff">快递号：{{item.cnumber}}</span>
           <div v-for="(data1,h) in item.cusInfo":key="h">
             <div style="display: flex;flex-direction: row;justify-content: space-between">
               <span style="background-color: #ffffff">收货人姓名：{{data1.name}}</span>
@@ -77,7 +77,6 @@ export default {
       ],
       //包含商品的信息及地址信息，地址信息？
       list:[
-
           //gpic:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
          //  oid:1,
          //  gid: 11,
@@ -93,7 +92,6 @@ export default {
          //  state:5,
          //  courier_number:"111-222-111"
          // }
-
       ]
     }
   },
@@ -101,6 +99,7 @@ export default {
     handleClick(row) {
       //console.log(row);
     },
+    //考虑一个订单内多个商品？
     listOrders(){
       order.getOrderList()
         .then(response=>{

@@ -6,7 +6,7 @@
     <el-button   type="primary" @click="research">搜索</el-button>
 
 <!--    展示列表区域-->
-    <div class="card" v-for="item in list" :key="item">
+    <div class="card" v-for="(item,index) in list" :key="item">
       <img class="img" :src="item.gpic" style="width: 10%">
       <div style="width: 400px">
 
@@ -20,12 +20,11 @@
 
       </div>
 
-      <button class="button" @click="edit">修改信息</button>
+      <button class="button" @click="edit(index)">修改信息</button>
       <div style="display: flex;flex-direction: column">
         <button class="button" @click="putAd">商品推广</button>
         <button class="button" style="margin-top: 100px" @click="off">{{ onSB }}</button>
       </div>
-
     </div>
     <br>
     <div class="card" v-show="isShow"> 没有搜索的商品</div>
@@ -124,8 +123,10 @@ export default {
           }
         })
     },
-    edit(){
+    edit(index){
       console.log("修改信息");
+      console.log("index: "+index);
+      this.$store.commit('SET_GOODSMANAGEINFO',this.list[index])
       this.$router.push('/form/index')
 
     },

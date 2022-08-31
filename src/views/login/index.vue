@@ -1,12 +1,20 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">vue-admin-template</h3>
+      <h3 class="title">电商管理系统</h3>
+      <el-select v-model="value" placeholder="请选择">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
+        <el-input v-model="loginForm.userid" name="username" type="text" auto-complete="on" placeholder="userid" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -23,11 +31,17 @@
           <svg-icon icon-class="eye" />
         </span>
       </el-form-item>
-      <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          Sign in
+      <div style="display:flex;flex-direction: column;justify-content: space-between">
+        <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin">
+          登录
         </el-button>
-      </el-form-item>
+        <el-button  type="primary" style="margin-top:20px;width:100%;" @click.native.prevent="handleRegister">
+          注册
+        </el-button>
+
+      </div>
+
+
 <!--      <div class="tips">-->
 <!--        <span style="margin-right:20px;">username: admin</span>-->
 <!--        <span> password: admin</span>-->
@@ -45,7 +59,7 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('请输入正确的用户id'))
       } else {
         callback()
       }
@@ -59,16 +73,26 @@ export default {
     }
     return {
       loginForm: {
-        username: 'bobbob',
-        password: '44444444'
+        userid: '2',
+        password: '12345678',
+        value:'customer',
       },
-      // loginRules: {
-      //   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-      //   password: [{ required: true, trigger: 'blur', validator: validatePass }]
-      // },
+      options: [{
+        value: 'customer',
+        label: '消费者账户'
+      }, {
+        value: 'storekeeper',
+        label: '商家账户'
+      },
+        {
+          value: 'admin',
+          label: '管理员账户'
+        },
+      ],
+      value: '',
       loading: false,
       pwdType: 'password',
-      //redirect: undefined
+      redirect: undefined
     }
   },
   // watch: {
@@ -88,33 +112,62 @@ export default {
         this.pwdType = 'password'
       }
     },
-    handleLogin() {
-      console.log("登录函数")
-      this.$refs.loginForm.validate(valid => {
-        console.log("登录表单有效")
-        // this.$router.push('/home')
+    handleRegister(){
 
+    },
+    handleLogin() {
+      this.loginForm.value=this.value;
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           //登录信息获取
-          this.$store.dispatch('GetInfo',this.loginForm).then(()=>{
-            // console.log("111111")
-            }
-          )
+          // this.$store.dispatch('GetInfo',this.loginForm).then(()=>{
+          //   alert(this.$store.state.name)
+          //   }
+          // )
+          // this.$store.dispatch('Login', this.loginForm).then(() => {
+          //   this.loading = false
+          //   this.$router.push({ path: this.redirect || '/home' })
+          //   //登录后的跳转界面！！！
+          // }).catch(() => {
+          //   this.loading = false
+          // })
+          //消费者登录
+          if(this.value=='customer'){
+            this.$store.dispatch('Login', this.loginForm).then(() => {
+              this.loading = false
+              this.$router.push({ path: this.redirect || '/homeview' })
+              //登录后的跳转界面！！！
+            }).catch(() => {
+              this.loading = false
+            })
+          }else if(this.value=='storekeeper')//商家登录
+          {
+            this.$store.dispatch('Login', this.loginForm).then(() => {
+              console.log("商家登录")
+              this.loading = false
+              this.$router.push({ path: this.redirect || '/goodsmanage' })
+              //登录后的跳转界面！！！
+            }).catch(() => {
+              this.loading = false
+            })
+          }else if(this.value=='admin')//管理员登录
+          {
+            this.$store.dispatch('Login', this.loginForm).then(() => {
+              this.loading = false
+              this.$router.push( '/home' )
+              //登录后的跳转界面！！！
+            }).catch(() => {
+              this.loading = false
+            })
+          }else{
+            alert("请选择身份类型")
+          }
 
-          //登录
-          this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: this.redirect || '/home' })
-            //登录后的跳转界面！！！
-          }).catch(() => {
-            this.loading = false
-          })
         } else {
           console.log('error submit!!')
           return false
         }
-        console.log("登录表单结束")
       })
     },
     getLoginInfo(){

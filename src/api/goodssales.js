@@ -9,8 +9,11 @@ export default {
   },
   deleteGoodssalesById(gid) {
     return request({
-      url: `/goodssales/deleteGoodssalesById?gid=${gid}`,
+      url: `/goodssales/deleteGoodssalesById`,
       method: 'get',
+      params:{
+        gid:gid
+      }
     })
   },
   addGoodssales(goodssales) {
@@ -18,28 +21,40 @@ export default {
       url: '/goodssales/addGoodssales',
       method: 'post',
       // data: goodssales
-      params:{
-        goodssales:goodssales
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(goodssales)
     })
   },
-  findGoodssalesById(gid) {
+  findGoodssalesByGid(gid) {
     return request({
-      url: `/goodssales/getGoodssalesById`,
+      url: `/goodssales/getGoodssalesByGid`,
       method: 'get',
       params:{
         gid:gid
       }
     })
   },
+  findGoodssalesBySid(sid) {
+    return request({
+      url: `/goodssales/getGoodssalesBySid`,
+      method: 'get',
+      params:{
+        sid:sid
+      }
+    })
+  },
   updateGoodssales(goodssales) {
+    console.log("goodssales"+goodssales);
     return request({
       url: '/goodssales/updateGoodssales',
       method: 'post',
       // data: goodssales
-      params:{
-        goodssales:goodssales
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(goodssales)
     })
   }
 }

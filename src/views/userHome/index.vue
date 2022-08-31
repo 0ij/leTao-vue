@@ -2,10 +2,7 @@
   <div class="dashboard-container">
     <h1>个人中心</h1>
 
-
-
     <div class="outer">
-
       <img src="https://i.postimg.cc/3NDqntTH/2021-04-06-203913.png">
       <div class="showcase">
         <div class="line">
@@ -72,13 +69,13 @@
           </template>
           {{ item.address}}
         </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-tickets"></i>
-            备注
-          </template>
-          <el-tag size="small">{{ item.note }}</el-tag>
-        </el-descriptions-item>
+<!--        <el-descriptions-item>-->
+<!--          <template slot="label">-->
+<!--            <i class="el-icon-tickets"></i>-->
+<!--            备注-->
+<!--          </template>-->
+<!--          <el-tag size="small">{{ item.note }}</el-tag>-->
+<!--        </el-descriptions-item>-->
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
@@ -111,15 +108,9 @@ export default {
 
       myData:{
         cid:7,
-        cname:'胡图图',
-        Cpassword:'',
+        cname:'fadfds',
+        cpassword:'',
 
-        // pic:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-        // money:'1000'
-      },
-      loginForm: {
-        username: 'bobbob',
-        password: '44444444'
       },
       list:[
         {
@@ -148,14 +139,18 @@ export default {
   methods:{
     //初始时显示对应信息
     setInfo(){
-      this.$store.dispatch('GetInfo',this.loginForm).then(()=>{
-        console.log("实时用户！！！！")
-        console.log(this.myData.cname );
-        console.log(user.state.name );
-        this.myData.name=user.state.name;
+      //可获取到用户id
+      //用户名获取不到
+        this.myData.cname=user.state.name;
+        this.myData.cid = user.state.id;
+        console.log("user.state.id "+user.state.id)
+        console.log("user.state.name "+user.state.name)
 
-        }
-      )
+      //获取该用户的对应地址
+      user1.getAddress(user.state.id).then(response=>{
+        console.log("地址信息 "+response)
+        this.list=response.data.Address;
+      })
     },
     //修改名字
     changeName(){
@@ -181,9 +176,9 @@ export default {
         this.isShow=false;
         user.state.name=this.newName;
         //写回数据库
-        console.log("this.myData.Cid:"+this.myData.Cid);
-        console.log("this.myData.Cname:"+this.myData.cname);
-        console.log("this.newName:"+this.newName);
+        // console.log("this.myData.Cid:"+this.myData.Cid);
+        // console.log("this.myData.Cname:"+this.myData.cname);
+        // console.log("this.newName:"+this.newName);
         this.$store.dispatch('ChangeName',this.myData).then(()=>{
            console.log("111111")
         });

@@ -3,6 +3,8 @@
     <el-aside>
       <Aside/>
     </el-aside>
+
+
     <el-container>
       <el-main>
         <div class="block" style="width: 600px;">
@@ -24,18 +26,21 @@
           <el-button type="primary" style="margin-left: 5px" @click="search">搜索</el-button>
         </div>
 
-        <el-row style="margin: 100px 200px">
-          <el-col :span="16" v-for="(item, index) in list" :key="item">
+        <el-row>
+          <el-col :span="8" v-for="(item, index) in list" :key="item" :offset="index > 0 ?8 : 0">
             <el-card :body-style="{ padding: '0px' }">
               <!--                <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201209%2F28%2F20120928111518_AYYJr.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663845252&t=35da9a1404aa56cdc1ac2c41e90b6801" class="image" alt="汉堡">-->
-              <img class="img" :src="item.gpic" style="width: 10%">
-              <div style="padding: 14px;">
-                <span>{{ item.gname }}</span>
-                <div>￥ {{ item.gprice }}</div>
-                <div class="bottom clearfix">
-                  <el-button type="text" class="button" @click="load(index)">详情</el-button>
-                </div>
-              </div>
+             <div style="display: flex;flex-direction: column;">
+               <img class="img" :src="item.gpic" style="width: 100%">
+               <div style="padding: 14px;">
+                 <span>{{ item.gname }}</span>
+                 <div>￥ {{ item.price }}</div>
+                 <div class="bottom clearfix">
+                   <el-button type="text" class="button" @click="load(index)">详情</el-button>
+                 </div>
+               </div>
+             </div>
+
             </el-card>
             <el-card :body-style="{ padding: '0px' }" v-show="isShow">
               无搜索商品
@@ -63,6 +68,7 @@ export default {
     return {
       input: '',
       isShow:false,
+      TreeListKeys:[],
       imgList: [
         {id: 0, src: 'https://m.360buyimg.com/mobilecms/s750x750_jfs/t20590/215/515426016/219946/fe4c5796/5b0faae4N6f3aab95.jpg!q80.dpg'},
         {id: 1, src: 'https://imgcps.jd.com/img-cubic/creative_server_cia/v2/2000366/100036301392/FocusFullshop/CkNqZnMvdDEvMjA5OTUyLzE1LzI0MTY4LzYyMzE2LzYyZmJlZTRiRWQyMjk1NDRmL2ExODdhZmFlNDdkZTJiODUucG5nEgkzLXR5XzBfNTQwAjjui3pCEAoM6I2j6ICA5omL5py6EAFCEAoM56aP5Yip54uC5LqrEAJCEAoM56uL5Y2z5oqi6LStEAZCCgoG56eN6I2JEAdY0KSD1fQC/cr/s/q.jpg'},
@@ -100,7 +106,7 @@ export default {
       console.log("搜索");
       // this.form.gid=parseInt(this.input)
       console.log("this.input "+this.input) ;
-      if(this.input===''){
+      if(this.input==''){
         alert("请输入商品名")
       }else{
         goods.findGoodsByName(this.input)
@@ -119,7 +125,7 @@ export default {
       console.log(this.list[index])
       this.$store.commit("SET_GOODS",this.list[index])
       console.log("store获取值"+this.$store.state.goods);
-      this.$router.push('/item')
+      router.push('/item')
     },
     listGoods(){
       goods.getGoodsList()
@@ -135,6 +141,68 @@ export default {
           }
 
         })
+    },
+    mouseenter(o, index) {
+      // alert("enter");
+      console.log(index);
+      this.treein = true;
+      // this.treeout = false;
+      // this.subtreein = true;
+      // this.subtreeout = false;
+      this.SubTreeXianShi = true;
+      console.log(o);
+      this.list1 = this.TreeList[o];
+      this.subTreekeys = Object.keys(this.TreeList[o]);
+      console.log(this.list1);
+      console.log(this.subTreekeys);
+    },
+    mouseleave(index) {
+      // alert(this.subtreein);
+      // alert("leave");
+      this.treein = false;
+      console.log(index);
+      // this.treeout = true;
+      // if (this.treein == false && this.subtreein == false) {
+      //   this.SubTreeXianShi = false;
+      // }
+      setTimeout(() => {
+        console.log(index);
+        // alert(
+        //   index +
+        //     " " +
+        //     "treein: " +
+        //     this.treein +
+        //     "subtreein: " +
+        //     this.subtreein
+        // );
+
+        if (this.treein == false && this.subtreein == false) {
+          this.SubTreeXianShi = false;
+        }
+        // 方法区
+      }, 1);
+      // if (this.treein == false) {
+      //   if (index == 1) {
+      //     alert(this.mouseY);
+      //     if (this.xiangduiX < 0) {
+      //       this.SubTreeXianShi = false;
+      //     } else {
+      //       if (this.mouseY < 238) {
+      //         this.SubTreeXianShi = false;
+      //       }
+      //     }
+      //   } else if (index == 10) {
+      //     alert(this.mouseY);
+      //     if (this.xiangduiX < 0) {
+      //       this.SubTreeXianShi = false;
+      //
+      //   } else {
+      //     if (this.xiangduiX < 0) {
+      //       this.SubTreeXianShi = false;
+      //     }
+      //   }
+      // }
+      // this.SubTreeXianShi = false ;
     },
   }
 }

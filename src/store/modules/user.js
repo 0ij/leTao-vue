@@ -6,9 +6,11 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 const user = {
   state: {
     token: getToken(),
-    name: '',
+    name: 'dasds',
+    id: 0,
     avatar: '',
-    roles: []
+    roles: [],
+    info:[]
   },
 
   mutations: {
@@ -17,6 +19,9 @@ const user = {
     },
     SET_NAME: (state, name) => {
       state.name = name
+    },
+    SET_ID: (state,id) => {
+      state.id = id
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
@@ -28,44 +33,40 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
-
-      const username = userInfo.username.trim()
+    Login({ commit,state }, userInfo) {
+      const userid = userInfo.userid
       return new Promise((resolve, reject) => {
-        // login(username, userInfo.password).then(response => {
-        //   const data = response.data
-        //   setToken(data.token)
-        //   commit('SET_TOKEN', data.token)
-        //   resolve()
-        //   console.log("登录成功！")
-        // }).catch(error => {
-        //   reject(error)
-        // })
-        resolve()
+        login(userInfo.value,userid, userInfo.password).then(response => {
+          const data = response.data
+          setToken(data.customer)
+          commit('SET_TOKEN', data.customer)
+          commit('SET_ID', data.customer.cid)
+          commit('SET_NAME', data.customer.cname)
+          console.log("store中 "+ state.name)
+          resolve()
+          console.log("登录成功！")
+        }).catch(error => {
+          reject(error)
+        })
+        // resolve()
       })
     },
 
+    //用户的地址订单等信息需要零散分别获取
     // 获取用户信息
     GetInfo({ commit, state }) {
-      console.log("store/modules/user.js中的获取用户信息的函数被调用")
-      console.log("测试state: "+state.name)
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
+        //token里面包括了登录的username password 以及cid
+        getInfo(state.token.cid).then(response => {
           const data = response.data
-          console.log("response"+response)
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-            console.log(data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
+          // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+          //   commit('SET_ROLES', data.roles)
+          // } else {
+          //   reject('getInfo: roles must be a non-null array !')
+          // }
           commit('SET_NAME', data.name)
-          console.log(data.name)
           commit('SET_AVATAR', data.avatar)
-          console.log(data.avatar)
           resolve(response)
-          console.log("结束2222222")
-          console.log("用户名: "+state.name)
         }).catch(error => {
           reject(error)
         })

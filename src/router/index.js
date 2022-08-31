@@ -1,11 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Register from "@/views/Register";
-// import Item from "@/views/Item";
-// import Customer from "@/views/Customer";
-// import StoreKeeper from "@/views/StoreKeeper";
-// import Administrator from "@/views/Administrator";
-// import Goods from "@/views/Goods";
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -29,7 +23,7 @@ import Login from "../views/Login";
   }
  **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/', component: () => import('@/views/login/index'), hidden: true },
 
   { path: '/404', component: () => import('@/views/404'), hidden: true },
 
@@ -47,12 +41,6 @@ export const constantRouterMap = [
     }]
   },
 
-  {
-    path: '/user',
-    component: () => import('@/views/Login'),
-    name: 'Login',
-    meta: { title: 'Login', icon: 'table' }
-  },
   {
     path: '/customer',
     component: () => import('@/views/Customer'),
@@ -141,7 +129,8 @@ export const constantRouterMap = [
       },
       {
         path: 'tree',
-        name: 'ShopAdd',
+        name: '商品增加或更新',
+        hidden: true,
         component: () => import('@/views/shop/save'),
         meta: { title: 'ShopAdd', icon: 'tree' }
       },
@@ -154,7 +143,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
   {
     path: '/goodssales',
     component: Layout,
@@ -165,12 +153,14 @@ export const constantRouterMap = [
       {
         path: 'table',
         name: 'GoodssalesList',
+        hidden: true,
         component: () => import('@/views/goodssales/list'),
         meta: { title: 'GoodssalesList', icon: 'table' }
       },
       {
         path: 'tree',
-        name: 'GoodssalesAdd',
+        name: '商品销量增加或修改',
+        hidden: true,
         component: () => import('@/views/goodssales/save'),
         meta: { title: 'GoodssalesAdd', icon: 'tree' }
       },
@@ -243,6 +233,7 @@ export const constantRouterMap = [
       {
         path: 'index',
         name: '表单',
+        hidden: true,
         component: () => import('@/views/form/index'),
         meta: { title: 'Form', icon: 'form' }
       }
@@ -321,33 +312,6 @@ export const constantRouterMap = [
 
   { path: '*', redirect: '/404', hidden: true }
 ]
-
-// this.$router.beforeEach((to, from, next) => {
-//   const token = localStorage.token;
-//
-//   if (token) {
-//     // 如果已经登录了，自己非要手动访问登录页，则自动跳转到首页
-//     if (to.path === "/customer") {
-//       next({ path: "/home" });
-//     }
-//     next();
-//   } else {
-//     next({
-//       path: "/customer",
-//     });
-//   }
-// })
-//
-//
-// this.$router.afterEach((to, from, next) => {
-//   console.log('后置路由守卫afterEach')
-//   next()
-// })
-//
-// this.$router.beforeResolve((to, from, next) => {
-//   console.log('全局解析守卫beforeResolve')
-//   next()
-// })
 
 export default new Router({
   // mode: 'history', //后端支持可开

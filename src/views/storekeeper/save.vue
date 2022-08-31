@@ -39,20 +39,21 @@
     },
     methods: {
       init() {
-        if(this.$route.params && this.$route.params.kid) {
-          this.info(this.$route.params.kid)
-          } else {
-            this.storekeeper = {}
-        }
+        // if(this.$route.params && this.$route.params.kid) {
+        //   this.info(this.$route.params.kid)
+        //   } else {
+        //     this.storekeeper = {}
+        // }
+        this.storekeeper=this.$store.state.storekeeper;
       },
-      info(kid) {
-        storekeeper.findStorekeeperById(kid).then(response => {
-          console.log(response);
-          this.storekeeper = response.data.items
-          })
-      },
+      // info(kid) {
+      //   storekeeper.findStorekeeperById(kid).then(response => {
+      //     console.log(response);
+      //     this.storekeeper = response.data.items
+      //     })
+      // },
       saveOrUpdate() {
-        if(this.storekeeper.id) {
+        if(this.storekeeper.id==null) {
             console.log("更新")
             this.update();
             } else {

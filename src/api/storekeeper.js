@@ -22,9 +22,10 @@ export default {
       url: '/storekeeper/addStorekeeper',
       method: 'post',
       // data: storekeeper
-      params:{
-        storekeeper:storekeeper
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(storekeeper)
     })
   },
   findStorekeeperById(kid) {
@@ -42,9 +43,10 @@ export default {
       url: '/storekeeper/updateStorekeeper',
       method: 'post',
       // data: storekeeper
-      params:{
-        storekeeper:storekeeper
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(storekeeper)
     })
   }
 }

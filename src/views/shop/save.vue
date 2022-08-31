@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-top: 30px">
         <el-form ref="form" label-width="120px">
             <el-form-item label="门店编号">
                 <el-input v-model="shop.sid"></el-input>
@@ -17,7 +17,7 @@
                 <el-input v-model="shop.goodsnum"></el-input>
             </el-form-item>
             <el-form-item label="门店位置">
-                <el-input v-model="shop.locate" :rows="10" type="textarea"/>
+                <el-input v-model="shop.locate" :rows="2" type="textarea"/>
             </el-form-item>
             <el-form-item>
                 <el-button :disabled="saveBtnDisabled" type="primary" @click="saveOrUpdate">保存</el-button>
@@ -42,11 +42,13 @@
     },
     methods: {
       init() {
-        if(this.$route.params && this.$route.params.sid) {
-          this.info(this.$route.params.sid)
-          } else {
-            this.shop = {}
-        }
+        // if(this.$route.params && this.$route.params.sid) {
+        //   this.info(this.$route.params.sid)
+        //   } else {
+        //     this.shop = {}
+        // }
+        this.shop = this.$store.state.shop
+
       },
       info(sid) {
         shop.findShopById(sid).then(response => {
@@ -55,12 +57,12 @@
           })
       },
       saveOrUpdate() {
-        if(this.shop.id) {
+        if(this.shop.id==null) {
             console.log("更新")
-            this.update();
+            this.save();
             } else {
              console.log("新增")
-             this.save();
+          this.update();
         }
       },
       save() {

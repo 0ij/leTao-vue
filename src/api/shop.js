@@ -16,23 +16,33 @@ export default {
       }
     })
   },
+  findShopById(sid) {
+    return request({
+      url: `/shop/getShopById`,
+      method: 'get',
+      params:{
+        sid:sid
+      }
+    })
+  },
+  findShopByName(name) {
+    return request({
+      url: `/shop/getShopByName`,
+      method: 'get',
+      params:{
+        name:name
+      }
+    })
+  },
   addShop(shop) {
     return request({
       url: `/shop/addShop`,
       method: 'post',
       // data: shop
-      params:{
-        shop:shop
-      }
-    })
-  },
-  findShopById(sid) {
-    return request({
-      url: `/shop/getShopById/${sid}`,
-      method: 'get',
-      params:{
-        sid:sid
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(shop)
     })
   },
   updateShop(shop) {
@@ -40,9 +50,10 @@ export default {
       url: `/shop/updateShop`,
       method: 'post',
       // data: shop
-      params:{
-        shop:shop
-      }
+      headers:{
+        "Content-Type":"application/json",
+      },
+      data:JSON.stringify(shop)
     })
   }
 }
