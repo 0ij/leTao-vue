@@ -39,7 +39,26 @@ import goods from "../api/goods";
 
 export default {
   name: "Aside",
+  data(){
+    subtreein: false
+  },
   methods: {
+    subTreein() {
+      this.subtreein = true;
+      // alert(this.subtreein);
+      // this.subtreeout = false;
+      // if ( this.subtreein && this)
+      // alert(" subTreein ");
+    },
+    subTreeout() {
+      this.subtreein = false;
+      // alert(this.subtreein);
+      // this.subtreeout = true;
+      if (this.subtreein == false && this.treein == false) {
+        this.SubTreeXianShi = false;
+      }
+    },
+
     man() {
       this.$router.push({path:'/goods', query: {gtype:'1'}})
     },

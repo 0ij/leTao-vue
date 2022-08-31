@@ -1,14 +1,13 @@
 <template>
-  <el-container>
-    <el-aside>
-      <Aside/>
-    </el-aside>
+  <div>
+    <div style="display: flex;flex-direction: row">
+      <el-aside>
+        <Aside/>
+      </el-aside>
 
+      <div style="display:flex;flex-direction: column;width:100%">
+        <div class="block" style="width: 600px;margin-top: 20px">
 
-    <el-container>
-      <el-main>
-        <div class="block" style="width: 600px;">
-          <span >热门商品</span>
           <el-carousel height="480px">
             <el-carousel-item v-for="item in imgList" :key="item.id">
               <img :src="item.src" class="image" style="width: 100%;height: auto" alt="热门">
@@ -26,31 +25,29 @@
           <el-button type="primary" style="margin-left: 5px" @click="search">搜索</el-button>
         </div>
 
-        <el-row>
-          <el-col :span="8" v-for="(item, index) in list" :key="item" :offset="index > 0 ?8 : 0">
-            <el-card :body-style="{ padding: '0px' }">
-              <!--                <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201209%2F28%2F20120928111518_AYYJr.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663845252&t=35da9a1404aa56cdc1ac2c41e90b6801" class="image" alt="汉堡">-->
-             <div style="display: flex;flex-direction: column;">
-               <img class="img" :src="item.gpic" style="width: 100%">
-               <div style="padding: 14px;">
-                 <span>{{ item.gname }}</span>
-                 <div>￥ {{ item.price }}</div>
-                 <div class="bottom clearfix">
-                   <el-button type="text" class="button" @click="load(index)">详情</el-button>
-                 </div>
-               </div>
-             </div>
+        <div style="width:140%;height: 50px;margin-left: -220px;margin-bottom: 10px">
+          <hr>
+          <span style="margin-left: 120px;color: #304156">推荐</span>
+          <hr>
+        </div>
+        <div class="outer" style="display:flex;flex-direction: row" >
+          <div class="inner" v-for="(item, index) in list" :key="item" :offset="index > 0 ?2 : 0" >
+            <div style="display: flex;flex-direction: column;">
+              <img class="img" :src="item.gpic" style="width:100%">
+              <div style="padding: 10px;">
+                <span>{{ item.gname }}</span>
+                <div>￥ {{ item.gprice }}</div>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button" @click="load(index)">详情</el-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
-            </el-card>
-            <el-card :body-style="{ padding: '0px' }" v-show="isShow">
-              无搜索商品
-            </el-card>
-          </el-col>
-        </el-row>
-
-      </el-main>
-    </el-container>
-  </el-container>
 </template>
 
 <script>
@@ -81,7 +78,7 @@ export default {
         gpic:'https://pic2.zhimg.com/v2-a3c175180fa7ec48700a5ab8325ca92e_1440w.jpg?source=172ae18b',
         gname:'衣服1',
         gtype:'11',
-        price:'134',
+        gprice:'134',
         inventory:'890',
         sid:'12',
         onSale:'1'
@@ -90,7 +87,7 @@ export default {
         gpic:'https://booklibimg.kfzimg.com/data/book_lib_img_v2/user/0/1c6c/1c6c4b391281ad7fc1e937bce01e6c3b_0_0_0_0_water.jpg',
         gname:'衣服3',
         gtype:'11',
-        price:'134',
+        gprice:'134',
         inventory:'890',
         sid:'12',
         onSale:'1'
@@ -106,7 +103,7 @@ export default {
       console.log("搜索");
       // this.form.gid=parseInt(this.input)
       console.log("this.input "+this.input) ;
-      if(this.input==''){
+      if(this.input===''){
         alert("请输入商品名")
       }else{
         goods.findGoodsByName(this.input)
@@ -125,7 +122,7 @@ export default {
       console.log(this.list[index])
       this.$store.commit("SET_GOODS",this.list[index])
       console.log("store获取值"+this.$store.state.goods);
-      router.push('/item')
+      this.$router.push('/item')
     },
     listGoods(){
       goods.getGoodsList()
@@ -141,68 +138,6 @@ export default {
           }
 
         })
-    },
-    mouseenter(o, index) {
-      // alert("enter");
-      console.log(index);
-      this.treein = true;
-      // this.treeout = false;
-      // this.subtreein = true;
-      // this.subtreeout = false;
-      this.SubTreeXianShi = true;
-      console.log(o);
-      this.list1 = this.TreeList[o];
-      this.subTreekeys = Object.keys(this.TreeList[o]);
-      console.log(this.list1);
-      console.log(this.subTreekeys);
-    },
-    mouseleave(index) {
-      // alert(this.subtreein);
-      // alert("leave");
-      this.treein = false;
-      console.log(index);
-      // this.treeout = true;
-      // if (this.treein == false && this.subtreein == false) {
-      //   this.SubTreeXianShi = false;
-      // }
-      setTimeout(() => {
-        console.log(index);
-        // alert(
-        //   index +
-        //     " " +
-        //     "treein: " +
-        //     this.treein +
-        //     "subtreein: " +
-        //     this.subtreein
-        // );
-
-        if (this.treein == false && this.subtreein == false) {
-          this.SubTreeXianShi = false;
-        }
-        // 方法区
-      }, 1);
-      // if (this.treein == false) {
-      //   if (index == 1) {
-      //     alert(this.mouseY);
-      //     if (this.xiangduiX < 0) {
-      //       this.SubTreeXianShi = false;
-      //     } else {
-      //       if (this.mouseY < 238) {
-      //         this.SubTreeXianShi = false;
-      //       }
-      //     }
-      //   } else if (index == 10) {
-      //     alert(this.mouseY);
-      //     if (this.xiangduiX < 0) {
-      //       this.SubTreeXianShi = false;
-      //
-      //   } else {
-      //     if (this.xiangduiX < 0) {
-      //       this.SubTreeXianShi = false;
-      //     }
-      //   }
-      // }
-      // this.SubTreeXianShi = false ;
     },
   }
 }
@@ -227,39 +162,55 @@ export default {
   float: right;
 }
 
-.typing {
-  color: #9ac5b6;
-  font-size: 2em;
-  width: 21em;
-  height: 1.5em;
-  border-right: 1px solid transparent;
-  animation: typing 2s steps(42, end), blink-caret .75s step-end infinite;
-  font-family: Consolas, Monaco;
-  word-break: break-all;
-  overflow: hidden;
-}
-/* 打印效果 */
-@keyframes typing {
-  from {
-    width: 0;
-  }
+.title{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: -100px;
+  background: #EEE url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAHklEQVQImWNkYGBgYGD4//8/A5wF5SBYyAr+//8PAPOCFO0Q2zq7AAAAAElFTkSuQmCC) repeat;
+  text-shadow: 3px -3px black, 2px -2px white;
 
-  to {
-    width: 21em;
-  }
+  font-weight: bold;
+
+  -webkit-text-fill-color: transparent;
+
+  -webkit-background-clip: text;
+
+
 }
 
-/* 光标 */
-@keyframes blink-caret {
+.title1{
+  width: 150%;
+  margin-left: -200px;
+  height: 50px;
+  background-color: #99a9bf;
 
-  from,
-  to {
-    border-color: transparent;
+  font-size: 20px;
+}
+
+.outer {
+    width: 120%;
+    margin-left: -100px;
+    text-align: center;
+    display: flex;
+    align-content: flex-start;
+    flex-flow: row wrap;
   }
 
-  50% {
-    border-color: currentColor;
-  }
+
+.inner {
+    flex: 0 0 15%;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    box-shadow: 0 0 5px 1px #999
+
+
+}
+
+.showcase{
+  margin-left: 20px;
+  width:500px;
+  padding-left: 50px;
+  background-color: #99a9bf;
 }
 
 .image {

@@ -31,15 +31,14 @@
           <svg-icon icon-class="eye" />
         </span>
       </el-form-item>
-      <div style="display:flex;flex-direction: column;justify-content: space-between">
         <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin">
           登录
         </el-button>
-        <el-button  type="primary" style="margin-top:20px;width:100%;" @click.native.prevent="handleRegister">
+
+        <el-button  type="primary" style="margin-left:0px;margin-top:20px;width:100%;" @click.native.prevent="handleRegister">
           注册
         </el-button>
 
-      </div>
 
 
 <!--      <div class="tips">-->
@@ -120,33 +119,24 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          //登录信息获取
-          // this.$store.dispatch('GetInfo',this.loginForm).then(()=>{
-          //   alert(this.$store.state.name)
-          //   }
-          // )
-          // this.$store.dispatch('Login', this.loginForm).then(() => {
-          //   this.loading = false
-          //   this.$router.push({ path: this.redirect || '/home' })
-          //   //登录后的跳转界面！！！
-          // }).catch(() => {
-          //   this.loading = false
-          // })
+          console.log(this.value)
           //消费者登录
-          if(this.value=='customer'){
+          if(this.value=='storekeeper'){
+            console.log("ces")
             this.$store.dispatch('Login', this.loginForm).then(() => {
+              console.log("商家登录")
               this.loading = false
-              this.$router.push({ path: this.redirect || '/homeview' })
+              alert("商家登录")
+              this.$router.push({ path: this.redirect || '/goodsmanage' })
               //登录后的跳转界面！！！
             }).catch(() => {
               this.loading = false
             })
-          }else if(this.value=='storekeeper')//商家登录
+          }else if(this.value=='customer')//商家登录
           {
             this.$store.dispatch('Login', this.loginForm).then(() => {
-              console.log("商家登录")
               this.loading = false
-              this.$router.push({ path: this.redirect || '/goodsmanage' })
+              this.$router.push({ path: this.redirect || '/homeview' })
               //登录后的跳转界面！！！
             }).catch(() => {
               this.loading = false
