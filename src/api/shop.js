@@ -9,7 +9,7 @@ export default {
   },
   deleteShopById(sid) {
     return request({
-      url: `/shop/deleteShopById`,
+      url: `/shop/deleteShopById?sid=${sid}`,
       method: 'get',
       params:{
         sid:sid

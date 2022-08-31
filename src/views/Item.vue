@@ -25,7 +25,7 @@
             {{ goods.inventory }}
           </el-descriptions-item>
           <el-descriptions-item label="销量">
-            暂无
+            尚无
           </el-descriptions-item>
           <el-descriptions-item label="单价">
             {{ goods.gprice }}
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+
+import goods from "./Goods";
 
 export default {
   name: "Item",

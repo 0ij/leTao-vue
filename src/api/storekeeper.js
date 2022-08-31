@@ -9,8 +9,8 @@ export default {
   },
   deleteStorekeeperById(kid) {
     return request({
-      // url: `/storekeeper/deleteStorekeeperById?kid=${kid}`,
-      url: `/storekeeper/deleteStorekeeperById?kid`,
+      url: `/storekeeper/deleteStorekeeperById?kid=${kid}`,
+      //url: `/storekeeper/deleteStorekeeperById?kid`,
       method: 'get',
       params:{
         kid:kid

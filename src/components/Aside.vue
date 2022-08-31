@@ -2,26 +2,32 @@
 <!--  <el-row class="tac">-->
 <!--    <el-col>-->
       <el-menu
-          :router="true"
           style="width: 30%;min-height: 100vh;"
-          default-active="1-1"
           class="el-menu-vertical-demo">
-        <el-sub-menu index="1">
+
 <!--          <template #title>-->
 <!--            <span style="margin-top:20px">商品分类</span>-->
 <!--          </template>-->
-          <el-menu-item-group>
-            <el-menu-item index="1-1">男装</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group>
-            <el-menu-item index="tree">女装</el-menu-item>
-          </el-menu-item-group>
-        </el-sub-menu>
-        <el-menu-item index="2">
+        <el-menu-item index="man" @click="man">
+          <span>男装</span>
+        </el-menu-item>
+        <el-menu-item index="woman" @click="woman">
+          <span>女装</span>
+        </el-menu-item>
+        <el-menu-item index="book" @click="book">
           <span>图书</span>
         </el-menu-item>
-        <el-menu-item index="home">
+        <el-menu-item index="food" @click="food">
           <span>食品</span>
+        </el-menu-item>
+        <el-menu-item index="phone" @click="phone">
+          <span>手机</span>
+        </el-menu-item>
+        <el-menu-item index="face" @click="face">
+          <span>美妆</span>
+        </el-menu-item>
+        <el-menu-item index="object" @click="object">
+          <span>家具</span>
         </el-menu-item>
       </el-menu>
 <!--    </el-col>-->
@@ -29,8 +35,33 @@
 </template>
 
 <script>
+import goods from "../api/goods";
+
 export default {
-  name: "Aside"
+  name: "Aside",
+  methods: {
+    man() {
+      this.$router.push({path:'/goods', query: {gtype:'1'}})
+    },
+    woman() {
+      this.$router.push({path:'/goods', query: {gtype:'2'}})
+    },
+    book() {
+      this.$router.push({path:'/goods', query: {gtype:'3'}})
+    },
+    food() {
+      this.$router.push({path:'/goods', query: {gtype:'4'}})
+    },
+    phone() {
+      this.$router.push({path:'/goods', query: {gtype:'5'}})
+    },
+    face() {
+      this.$router.push({path:'/goods', query: {gtype:'6'}})
+    },
+    object() {
+      this.$router.push({path:'/goods', query: {gtype:'7'}})
+    }
+  }
 }
 </script>
 

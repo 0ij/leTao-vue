@@ -24,8 +24,8 @@
           <el-button type="primary" style="margin-left: 5px" @click="search">搜索</el-button>
         </div>
 
-        <el-row>
-          <el-col :span="8" v-for="(item, index) in list" :key="item" :offset="index > 0 ? 2 : 0">
+        <el-row style="margin: 100px 200px">
+          <el-col :span="16" v-for="(item, index) in list" :key="item">
             <el-card :body-style="{ padding: '0px' }">
               <!--                <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201209%2F28%2F20120928111518_AYYJr.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663845252&t=35da9a1404aa56cdc1ac2c41e90b6801" class="image" alt="汉堡">-->
               <img class="img" :src="item.gpic" style="width: 10%">
@@ -100,7 +100,7 @@ export default {
       console.log("搜索");
       // this.form.gid=parseInt(this.input)
       console.log("this.input "+this.input) ;
-      if(this.input==''){
+      if(this.input===''){
         alert("请输入商品名")
       }else{
         goods.findGoodsByName(this.input)
@@ -119,7 +119,7 @@ export default {
       console.log(this.list[index])
       this.$store.commit("SET_GOODS",this.list[index])
       console.log("store获取值"+this.$store.state.goods);
-      router.push('/item')
+      this.$router.push('/item')
     },
     listGoods(){
       goods.getGoodsList()
